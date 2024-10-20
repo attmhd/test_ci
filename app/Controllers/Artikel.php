@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use CodeIgniter\RESTful\ResourceController;
-use CodeIgniter\API\ResponseTrait;
 use App\Models\ArtikelModel;
 
 class Artikel extends ResourceController
@@ -77,7 +76,7 @@ class Artikel extends ResourceController
     {
         $artikel_model = new ArtikelModel();
         $data = [
-            'id_artikel' => $this->request->getVar('id_artikel'),
+            
             'judul_artikel' => $this->request->getVar('judul_artikel'),
         ];
         $artikel_model->update($id, $data);
