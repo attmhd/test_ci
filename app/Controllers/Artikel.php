@@ -9,7 +9,7 @@ use App\Models\ArtikelModel;
 class Artikel extends ResourceController
 {
  
-
+    // get all artikel
     public function index()
     {
         $artikel_model = new ArtikelModel();
@@ -19,51 +19,78 @@ class Artikel extends ResourceController
         
     }
 
+    //create
     public function create()
     {
-        $data = $this->request->getPost();
-
-        if ($this->model->insert($data) === false) {
-            return $this->fail($this->model->errors());
-        }
-
-        return $this->respondCreated($data);
+        $artikel_model = new ArtikelModel();
+        $data = [
+            'id_artikel' => $this->request->getVar('id_artikel'),
+            'judul_artikel' => $this->request->getVar('judul_artikel'),
+        ];
+        $artikel_model->insert($data);
+        $response = [
+            'status' => 201,
+            'error' => null,
+            'message' => [
+                'success' => 'Artikel berhasil ditambahkan',
+                'data' => $data
+            ]
+        ];
+        return $this->respondCreated($response, 201);
     }
 
+    //getbyID
     public function show($id = null)
     {
-        $data = $this->model->find($id);
-
-        if (!$data) {
-            return $this->failNotFound('Data not found with id ' . $id);
+        $artikel_model = new ArtikelModel();
+        $data = $artikel_model->getWhere(['id_artikel' => $id])->getResult();
+        if($data){
+            return $this->respond($data);
+        }else{
+            return $this->failNotFound('Artikel tidak ditemukan');
         }
-
-        return $this->respond($data);
     }
 
-    public function update($id = null)
-    {
-        $data = $this->request->getRawInput();
-
-        if ($this->model->update($id, $data) === false) {
-            return $this->fail($this->model->errors());
-        }
-
-        return $this->respondUpdated($data);
-    }
-
+    //delete
     public function delete($id = null)
     {
-        $data = $this->model->find($id);
-
-        if ($data === null) {
-            return $this->failNotFound('Data not found with id ' . $id);
+        $artikel_model = new ArtikelModel();
+        $data = $artikel_model->find($id);
+        if($data){
+            $artikel_model->delete($id);
+            $response = [
+                'status' => 200,
+                'error' => null,
+                'message' => [
+                    'success' => 'Artikel berhasil dihapus',
+                    'data' => $data
+                ]
+            ];
+            return $this->respondDeleted($response, 200);
+        }else{
+            return $this->failNotFound('Artikel tidak ditemukan');
         }
-
-        if ($this->model->delete($id) === false) {
-            return $this->fail($this->model->errors());
-        }
-
-        return $this->respondDeleted($data);
     }
+
+    //update
+    public function update($id = null)
+    {
+        $artikel_model = new ArtikelModel();
+        $data = [
+            'id_artikel' => $this->request->getVar('id_artikel'),
+            'judul_artikel' => $this->request->getVar('judul_artikel'),
+        ];
+        $artikel_model->update($id, $data);
+        $response = [
+            'status' => 200,
+            'error' => null,
+            'message' => [
+                'success' => 'Artikel berhasil diupdate',
+                'data' => $data
+            ]
+        ];
+        return $this->respond($response);
+    }
+
+   
 }
