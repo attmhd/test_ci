@@ -13,7 +13,15 @@ class ArtikelController extends ResourceController
     {
         $artikel_model = new ArtikelModel();
         $data = $artikel_model->findAll();
-        return $this->respond($data, 200);
+        $response = [
+            'status' => 200,
+            'error' => null,
+            'message' => [
+                'success' => 'data artikel berhasil ditampilkan',
+                'data' => $data
+            ]
+        ];
+        return $this->respond($response);
 
         
     }
