@@ -5,7 +5,7 @@ namespace App\Controllers;
 use CodeIgniter\RESTful\ResourceController;
 use App\Models\ArtikelModel;
 
-class Artikel extends ResourceController
+class ArtikelController extends ResourceController
 {
  
     // get all artikel

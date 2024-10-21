@@ -7,9 +7,7 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-//login
-// $routes->get('login', 'Login::index');
-$routes->post('login', 'Login::authenticate');
+
 
 //artikel
 $routes->get('artikels', 'Artikel::index');
@@ -18,9 +16,17 @@ $routes->get('artikels/(:segment)', 'Artikel::show/$1');
 $routes->delete('artikels/(:segment)', 'Artikel::delete/$1');
 $routes->put('artikels/(:segment)', 'Artikel::update/$1');
 
-//user
-$routes->get('users', 'User::index');
-$routes->get('users/(:segment)', 'User::show/$1');
-// $routes->post('users', 'User::create');
-// $routes->delete('users/(:segment)', 'User::delete/$1');
-// $routes->put('users/(:segment)', 'User::update/$1');
+//login
+$routes->get('login', 'UserController::index');
+//logout
+$routes->get('logout', 'UserController::logout');
+//register view
+$routes->get('register', 'UserController::register_view');
+//register user
+$routes->post('register', 'UserController::register');
+//auth
+$routes->post('auth', 'UserController::auth');
+
+
+//dashboard
+$routes->get('dashboard', 'Dashboard::index');
