@@ -25,7 +25,8 @@ class Dashboard extends ResourceController
                 'data' => $data
             ]
         ];
-        return $this->respond($response, 200);
+        
+        return view('admin_dashboard', $response);
 
     }
 }

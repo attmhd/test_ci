@@ -11,13 +11,15 @@ class UserController extends ResourceController
     //login
     public function index()
     {
-        return $this->respond('Ini halaman login', 200);
+        // return $this->respond('Ini halaman login', 200);
+        return view('login_view');
     }
 
     //register view
     public function register_view()
     {
-        return $this->respond('Ini halaman register', 200);
+        // return $this->respond('Ini halaman register', 200);
+        return view('register_view');
     }
 
 
@@ -72,7 +74,8 @@ class UserController extends ResourceController
             ]
         ];
         if($data){
-            return $this->respond($response);
+            // return $this->respond($response);
+            return redirect()->to('/dashboard')->with('success', 'Anda berhasil login.');
         }else{
             return $this->failNotFound('User tidak ditemukan');
         }
