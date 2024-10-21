@@ -10,11 +10,11 @@ $routes->get('/', 'Home::index');
 
 
 //artikel
-$routes->get('artikels', 'Artikel::index');
-$routes->post('artikels', 'Artikel::create');
-$routes->get('artikels/(:segment)', 'Artikel::show/$1');
-$routes->delete('artikels/(:segment)', 'Artikel::delete/$1');
-$routes->put('artikels/(:segment)', 'Artikel::update/$1');
+$routes->get('artikels', 'ArtikelController::index');
+$routes->post('artikels', 'ArtikelController::create');
+$routes->get('artikels/(:segment)', 'ArtikelController::show/$1');
+$routes->delete('artikels/(:segment)', 'ArtikelController::delete/$1');
+$routes->put('artikels/(:segment)', 'ArtikelController::update/$1');
 
 //login
 $routes->get('login', 'UserController::index');
