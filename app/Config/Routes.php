@@ -21,3 +21,9 @@ $routes->post('auth', 'UserController::auth');
 
 //dashboard
 $routes->get('dashboard', 'Dashboard::index');
+//add artikel
+$routes->get('dashboard/add', 'Dashboard::add_form');
+//create artikel
+$routes->post('dashboard/add', 'Dashboard::create');
+//delete artikel
+$routes->get('/dashboard/delete/(:segment)', 'Dashboard::delete/$1');

@@ -12,14 +12,18 @@ class Dashboard extends ResourceController
 
     public function index()
     {
-        //tampilkan data dengan paginate 10
         $data = [
-            'detail_artikel' => $this->model->paginate(10),
-            'pager' => $this->model->pager
+            'detail_artikel' => $this->model->orderBy('id_artikel', 'ASC')->paginate(10),
+            'pager' => $this->model->pager,
+
         ];
 
-        
         return view('dashboard_view', $data);
+    }
+
+    public function add_form()
+    {
+        return view('add_form');
     }
 
     public function create()
@@ -29,7 +33,7 @@ class Dashboard extends ResourceController
             'judul_artikel' => $this->request->getPost('judul_artikel'),
         ];
         $this->model->insert($data);
-        return $this->respondCreated($data);
+        return redirect()->to('/dashboard');
     }
 
     public function show($id = null)
@@ -59,6 +63,7 @@ class Dashboard extends ResourceController
             return $this->failNotFound('Article not found');
         }
         $this->model->delete($id);
-        return $this->respondDeleted($data);
+        // return $this->respondDeleted($data);
+        return redirect()->to('/dashboard');
     }
 }
