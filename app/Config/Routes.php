@@ -19,11 +19,9 @@ $routes->post('register', 'UserController::register');
 $routes->post('auth', 'UserController::auth');
 
 
-//dashboard
-$routes->get('dashboard', 'Dashboard::index');
-//add artikel
-$routes->get('dashboard/add', 'Dashboard::add_form');
-//create artikel
-$routes->post('dashboard/add', 'Dashboard::create');
-//delete artikel
-$routes->get('/dashboard/delete/(:segment)', 'Dashboard::delete/$1');
+//artikel
+$routes->get('dashboard/artikel', 'ArtikelController::index');
+$routes->get('dashboard/artikel/add', 'ArtikelController::add_form');
+$routes->post('dashboard/artikel/add', 'ArtikelController::create');
+$routes->get('dashboard/artikel/edit/(:segment)', 'ArtikelController::edit_form/$1');
+$routes->post('dashboard/artikel/edit/(:segment)', 'ArtikelController::update/$1');
