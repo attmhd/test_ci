@@ -9,7 +9,7 @@
 <body>
     
 
-<form class="max-w-sm mx-auto mt-20" action="/dashboard/add" method="POST">
+<form class="max-w-sm mx-auto mt-20" action="/dashboard/artikel/add" method="POST">
     <h1 class="text-2xl font-medium text-gray-900 dark:text-white">Add Artikel</h1>
   <div class="my-5">
     <label for="id_artikel" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ID Artikel</label>

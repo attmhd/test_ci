@@ -25,3 +25,4 @@ $routes->get('dashboard/artikel/add', 'ArtikelController::add_form');
 $routes->post('dashboard/artikel/add', 'ArtikelController::create');
 $routes->get('dashboard/artikel/edit/(:segment)', 'ArtikelController::edit_form/$1');
 $routes->post('dashboard/artikel/edit/(:segment)', 'ArtikelController::update/$1');
+$routes->get('dashboard/artikel/delete/(:segment)', 'ArtikelController::delete/$1');

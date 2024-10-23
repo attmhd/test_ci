@@ -63,7 +63,8 @@ class ArtikelController extends ResourceController
             'judul_artikel' => $this->request->getPost('judul_artikel'),
         ];
         $this->model->update($id, $data);
-        return $this->respond($data);
+        // return $this->respond($data);
+        return redirect()->to('/dashboard/artikel');
     }
 
     public function delete($id = null)
