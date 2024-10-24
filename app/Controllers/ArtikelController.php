@@ -13,7 +13,7 @@ class ArtikelController extends ResourceController
     public function index()
     {
         $data = [
-            'detail_artikel' => $this->model->orderBy('id_artikel', 'ASC')->paginate(10),
+            'detail_artikel' => $this->model->orderBy('id_artikel', 'ASC')->paginate(5),
             'pager' => $this->model->pager,
 
         ];
@@ -44,26 +44,25 @@ class ArtikelController extends ResourceController
             'judul_artikel' => $this->request->getPost('judul_artikel'),
         ];
         $this->model->insert($data);
+
+        // flash message
+        session()->setFlashdata('message', 'Artikel berhasil ditambahkan');
+
         return redirect()->to('/dashboard/artikel');
     }
 
-    public function show($id = null)
-    {
-        $data = $this->model->find($id);
-        if (!$data) {
-            return $this->failNotFound('Article not found');
-        }
-        return $this->respond($data);
-    }
+
 
     public function update($id = null)
     {
         $data = [
-            'id_artikel' => $this->request->getPost('id_artikel'),
+            // 'id_artikel' => $this->request->getPost('id_artikel'),
             'judul_artikel' => $this->request->getPost('judul_artikel'),
         ];
         $this->model->update($id, $data);
-        // return $this->respond($data);
+
+        // flash message
+        session()->setFlashdata('message', 'Artikel berhasil diubah');
         return redirect()->to('/dashboard/artikel');
     }
 
@@ -74,7 +73,8 @@ class ArtikelController extends ResourceController
             return $this->failNotFound('Article not found');
         }
         $this->model->delete($id);
-        // return $this->respondDeleted($data);
+        // flash message
+        session()->setFlashdata('message', 'Artikel berhasil dihapus');
         return redirect()->to('/dashboard/artikel');
     }
 }

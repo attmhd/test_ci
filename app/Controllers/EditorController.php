@@ -6,7 +6,7 @@ use CodeIgniter\RESTful\ResourceController;
 
 use App\Models\EditorModel;
 
-class EditorController extends Controller{
+class EditorController extends ResourceController{
     
         protected $modelName = 'App\Models\EditorModel';
         protected $format = 'json';
@@ -14,22 +14,29 @@ class EditorController extends Controller{
         public function index()
         {
             $data = [
-                'detail_editor' => $this->model->orderBy('id_editor', 'ASC')->paginate(10),
+                'detail_editor' => $this->model->orderBy('id_editor', 'ASC')->paginate(5),
                 'pager' => $this->model->pager,
     
             ];
+
+            // return $this->respond($data);
     
-            return view('dashboard_view', $data);
+            return view('editor/editor_view', $data);
         }
     
         public function add_form()
         {
-            return view('add_form');
+            return view('editor/add_form');
         }
     
-        public function edit_form()
+        // edit form
+        public function edit_form($id = null)
         {
-            return view('edit_form');
+            $data = $this->model->find($id);
+            if (!$data) {
+                return $this->failNotFound('Editor not found');
+            }
+            return view('editor/edit_form', $data);
         }
     
         public function create()
@@ -39,24 +46,34 @@ class EditorController extends Controller{
                 'nama_editor' => $this->request->getPost('nama_editor'),
             ];
             $this->model->insert($data);
-            return redirect()->to('/dashboard');
+            //flash message
+            session()->setFlashdata('message', 'Editor berhasil ditambahkan');
+            return redirect()->to('/dashboard/editor');
         }
     
-        public function show($id = null)
-        {
-            $data = $this->model->find($id);
-            if (!$data) {
-                return $this->failNotFound('Editor not found');
-            }
-            return $this->respond($data);
-        }
-    
+       
         public function update($id = null)
         {
             $data = [
-                'nama_editor' => $this->request->getRawInput('nama_editor'),
+                // 'id_editor' => $this->request->getPost('id_editor'),
+                'nama_editor' => $this->request->getPost('nama_editor'),
             ];
             $this->model->update($id, $data);
-            return $this->respond($data);
+            //flash message
+            session()->setFlashdata('message', 'Editor berhasil diubah');
+            return redirect()->to('/dashboard/editor');
+        }
+
+        public function delete($id = null)
+        {
+            $data = $this->model->find($id);
+            if($data){
+                $this->model->delete($id);
+                //flash message
+                session()->setFlashdata('message', 'Editor berhasil dihapus');
+                return redirect()->to('/dashboard/editor');
+            }else{
+                return $this->failNotFound('Editor not found');
+            }
         }
 }

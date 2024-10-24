@@ -74,10 +74,13 @@ class UserController extends ResourceController
             ]
         ];
         if($data){
-            // return $this->respond($response);
-            return redirect()->to('/dashboard')->with('success', 'Anda berhasil login.');
+            //flash message
+            session()->setFlashdata('message', 'Login berhasil');
+            return redirect()->to('/dashboard');
         }else{
-            return $this->failNotFound('User tidak ditemukan');
+            //flash message
+            session()->setFlashdata('message', 'Username atau password salah');
+            return redirect()->to('/login');
         }
     }
 
